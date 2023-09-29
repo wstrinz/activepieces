@@ -1,0 +1,43 @@
+{
+  "name": "pieces-weather-check",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/pieces/weather-check/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/packages/pieces/weather-check",
+        "tsConfig": "packages/pieces/weather-check/tsconfig.lib.json",
+        "packageJson": "packages/pieces/weather-check/package.json",
+        "main": "packages/pieces/weather-check/src/index.ts",
+        "assets": [
+          "packages/pieces/weather-check/*.md"
+        ],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs pieces-weather-check {args.ver} {args.tag}",
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/pieces/weather-check/**/*.ts",
+          "packages/pieces/weather-check/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
